@@ -1,0 +1,8 @@
+{
+  "package_name": "erp42_msgs",
+  "non_idl_tuples": [
+    "/home/yangsangmin/ws/src/erp42_msgs:msg/SerialFeedBack.msg",
+    "/home/yangsangmin/ws/src/erp42_msgs:msg/ControlMessage.msg",
+    "/home/yangsangmin/ws/src/erp42_msgs:msg/StanleyError.msg"
+  ]
+}

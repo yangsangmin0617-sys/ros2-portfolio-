@@ -1,0 +1,23 @@
+ekf_filter_node:
+  ros__parameters:
+    frequency: 30.0
+    sensor_timeout: 0.1
+    two_d_mode: true
+    publish_tf: true
+
+    odom0: /odom_raw
+    odom0_config: [true,  true,  false,
+                   false, false, true,
+                   true,  false, false,
+                   false, false, true,
+                   false, false, false]
+
+    # imu0 설정 부분 찾아서 수정
+    imu0: /imu/data  # 캡처 화면에 있는 정확한 토픽 이름입니다.
+    imu0_config: [false, false, false, # x, y, z 위치 (사용 안 함)
+                  false, false, true,  # roll, pitch, yaw 각도 (Yaw 중요!)
+                  false, false, false, # vx, vy, vz 선속도
+                  false, false, true,  # vroll, vpitch, vyaw 각속도 (Yaw 속도 중요!)
+                  true,  false, false] # ax, ay, az 가속도 (x축 가속도 사용 가능)
+    imu0_differential: false
+    imu0_relative: true  # 시작 지점을 0으로 잡기 위해 true 권장

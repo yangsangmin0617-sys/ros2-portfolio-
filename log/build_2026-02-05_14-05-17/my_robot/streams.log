@@ -1,0 +1,24 @@
+[0.427s] Invoking command in '/home/yangsangmin/ws/src/my_robot': PYTHONPATH=/home/yangsangmin/ws/build/my_robot/prefix_override:/usr/lib/python3/dist-packages/colcon_core/task/python/colcon_distutils_commands:/home/yangsangmin/ws/install/my_robot/lib/python3.10/site-packages:${PYTHONPATH} /usr/bin/python3 -W ignore:setup.py install is deprecated -W ignore:easy_install command is deprecated setup.py egg_info --egg-base ../../build/my_robot build --build-base /home/yangsangmin/ws/build/my_robot/build install --record /home/yangsangmin/ws/build/my_robot/install.log --single-version-externally-managed install_data
+[0.582s] running egg_info
+[0.583s] writing ../../build/my_robot/my_robot.egg-info/PKG-INFO
+[0.583s] writing dependency_links to ../../build/my_robot/my_robot.egg-info/dependency_links.txt
+[0.583s] writing entry points to ../../build/my_robot/my_robot.egg-info/entry_points.txt
+[0.583s] writing requirements to ../../build/my_robot/my_robot.egg-info/requires.txt
+[0.583s] writing top-level names to ../../build/my_robot/my_robot.egg-info/top_level.txt
+[0.584s] reading manifest file '../../build/my_robot/my_robot.egg-info/SOURCES.txt'
+[0.585s] writing manifest file '../../build/my_robot/my_robot.egg-info/SOURCES.txt'
+[0.585s] running build
+[0.585s] running build_py
+[0.585s] copying my_robot/odom_predictor.py -> /home/yangsangmin/ws/build/my_robot/build/lib/my_robot
+[0.585s] running install
+[0.585s] running install_lib
+[0.586s] copying /home/yangsangmin/ws/build/my_robot/build/lib/my_robot/odom_predictor.py -> /home/yangsangmin/ws/install/my_robot/lib/python3.10/site-packages/my_robot
+[0.587s] byte-compiling /home/yangsangmin/ws/install/my_robot/lib/python3.10/site-packages/my_robot/odom_predictor.py to odom_predictor.cpython-310.pyc
+[0.588s] running install_data
+[0.588s] running install_egg_info
+[0.589s] removing '/home/yangsangmin/ws/install/my_robot/lib/python3.10/site-packages/my_robot-0.0.0-py3.10.egg-info' (and everything under it)
+[0.589s] Copying ../../build/my_robot/my_robot.egg-info to /home/yangsangmin/ws/install/my_robot/lib/python3.10/site-packages/my_robot-0.0.0-py3.10.egg-info
+[0.590s] running install_scripts
+[0.604s] Installing odom_predictor script to /home/yangsangmin/ws/install/my_robot/lib/my_robot
+[0.604s] writing list of installed files to '/home/yangsangmin/ws/build/my_robot/install.log'
+[0.621s] Invoked command in '/home/yangsangmin/ws/src/my_robot' returned '0': PYTHONPATH=/home/yangsangmin/ws/build/my_robot/prefix_override:/usr/lib/python3/dist-packages/colcon_core/task/python/colcon_distutils_commands:/home/yangsangmin/ws/install/my_robot/lib/python3.10/site-packages:${PYTHONPATH} /usr/bin/python3 -W ignore:setup.py install is deprecated -W ignore:easy_install command is deprecated setup.py egg_info --egg-base ../../build/my_robot build --build-base /home/yangsangmin/ws/build/my_robot/build install --record /home/yangsangmin/ws/build/my_robot/install.log --single-version-externally-managed install_data

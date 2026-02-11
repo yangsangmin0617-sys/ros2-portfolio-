@@ -1,0 +1,26 @@
+// generated from rosidl_adapter/resource/msg.idl.em
+// with input from erp42_msgs/msg/ControlMessage.msg
+// generated code does not contain a copyright notice
+
+
+module erp42_msgs {
+  module msg {
+    @verbatim (language="comment", text=
+      "Messages")
+    struct ControlMessage {
+      uint8 mora;
+
+      uint8 estop;
+
+      uint8 gear;
+
+      uint16 speed;
+
+      int16 steer;
+
+      uint8 brake;
+
+      uint8 alive;
+    };
+  };
+};

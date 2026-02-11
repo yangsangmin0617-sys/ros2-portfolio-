@@ -1,0 +1,28 @@
+// generated from rosidl_adapter/resource/msg.idl.em
+// with input from erp42_msgs/msg/SerialFeedBack.msg
+// generated code does not contain a copyright notice
+
+
+module erp42_msgs {
+  module msg {
+    @verbatim (language="comment", text=
+      "Messages")
+    struct SerialFeedBack {
+      uint8 mora;
+
+      uint8 estop;
+
+      uint8 gear;
+
+      double speed;
+
+      double steer;
+
+      int16 brake;
+
+      int32 encoder;
+
+      uint8 alive;
+    };
+  };
+};

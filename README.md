@@ -1,11 +1,1 @@
-1.localization
-encoder, imu, gps를 활용해서 정밀한 위치추정을 위한 패키지입니다. 각 센서들을 융합하여 오차값을 최소화 합니다.
-
-2.센서토픽
-erp42_feedback: ERP42 플랫폼의 현재 속도, 조향각(Steer), 기어 상태 정보.
-/imu/data: IMU 센서의 가속도, 각속도 및 절대 방향(Quaternion) 정보.
-/ublox_gps_node/fix: GPS 수신기에서 들어오는 위도(Latitude), 경도(Longitude) 정보.
-/odom: wheel_odometry 노드가 발행. 바퀴 속도와 IMU 방향을 조합한 기초 오도메트리.
-/gps_odom: gps_odometry (또는 utm_node)가 발행. GPS 위경도를 미터(m) 단위의 XY 좌표로 변환한 데이터.
-/odometry/local: Local EKF의 결과물. 바퀴+IMU를 융합하여 부드러운 주행 경로를 보여줍니다. (odom 프레임 기준)
-/odometry/global: Global EKF의 결과물. GPS까지 합쳐져 지도상의 절대 위치를 나타냅니다. (map 프레임 기준)
+🛰️ ERP42 Dual EKF Localization 프로젝트ERP42 자율주행 플랫폼의 정밀 위치 추정을 위해 Wheel Odometry, IMU, GPS 데이터를 융합한 시스템입니다.📝 1. Package Description본 패키지는 robot_localization을 활용하여 실외 주행 시 발생하는 위치 오차를 최소화하고 안정적인 좌표계를 유지합니다.Dual EKF Architecture: local과 global 필터를 병렬 운영하여 정밀도 극대화.Initial Heading Optimization: 시작 시 IMU 방향을 즉시 신뢰하도록 공분산($100.0$) 튜닝.Data Sync Logic: 데이터 시차로 인한 궤적 왜곡(Ghosting) 문제를 코드 레벨에서 해결.🚀 2. Usage (실행 방법)구분실행 명령어주요 기능통합 실행ros2 launch localization.answer a.dual_ekf_localization.launch.pyGPS + 모든 센서 퓨전 (Map 생성)로컬 실행ros2 launch localization.answer a.local_localization.launch.py바퀴 + IMU 전용 (Odom 생성)백파일 재생... sync_imu:=trueBag 파일 재생 시 시간 동기화 활성화📡 3. Input & Output Topics🔹 Input Topics/erp42_feedback: 로봇 속도 및 조향각 (erp42_msgs/SerialFeedBack)/imu/data: 로봇 절대 방향 및 각속도 (sensor_msgs/Imu)/ublox_gps_node/fix: GPS 위경도 데이터 (sensor_msgs/NavSatFix)🔹 Output Topics/odometry/local: 부드러운 연속 이동 경로 (Local EKF 결과)/odometry/global: 지도상 절대 위치 경로 (Global EKF 결과)📊 4. Results & Troubleshooting✅ 성공 결과 (Success)초기 방향 정렬 최적화 후, 시작 지점에서 휨 현상 없이 일직선 주행을 확인했습니다.이미지: ![Success](./success_image.png) (여기에 사진을 넣으세요)❌ 실패 분석 (Troubleshooting)현상: 시작 시 궤적이 부채꼴 모양으로 꺾임.원인: IMU 신호보다 바퀴 신호가 먼저 입력되어 초기 방향 오판.해결: initial_estimate_covariance 수정 및 wheel_odometry.py에서 IMU 수신 전 발행 대기 로직 추가.이미지: ![Fail](./fail_image.png) (여기에 아까 그 휜 사진을 넣으세요)💡 팁: 링크 예시처럼 예쁘게 꾸미는 법구분선: ---를 입력하면 가로줄이 생겨 구역이 확실히 나뉩니다.굵은 글씨: 강조하고 싶은 단어 양옆에 **를 붙이세요. (예: **중요**)코드 블록: 명령어는 ` (백틱) 3개로 감싸면 검은색 박스로 예쁘게 나옵니다.이미지 삽입: 사진 파일도 깃허브 저장소에 같이 업로드한 뒤, 위 서식에 맞춰 파일명만 바꿔주시면 화면에 바로 뜹니다.

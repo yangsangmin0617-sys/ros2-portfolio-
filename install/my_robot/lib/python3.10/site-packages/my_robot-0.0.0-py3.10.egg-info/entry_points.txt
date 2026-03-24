@@ -1,3 +1,0 @@
-[console_scripts]
-odom_predictor = my_robot.odom_predictor:main
-

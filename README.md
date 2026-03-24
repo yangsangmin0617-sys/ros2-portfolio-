@@ -42,10 +42,10 @@
 
 ---
 
-## 🛠️ Installation & Usage
-
-### 1. Build
-```bash
+ 🛠️ Installation & Usage
+ 
+ 1. Build
+'''bash
 # 워크스페이스 빌드
 colcon build --symlink-install --packages-select localization
 source install/setup.bash
@@ -73,12 +73,18 @@ global ekf 실행결과
 
 
 
-<img width="586" height="547" alt="스크린샷 2026-03-20 19-32-36" src="https://github.com/user-attachments/assets/a8f92989-f889-4268-af5d-0fa0098aa52b" />
+<img width="586" height="547" alt="스크린샷 2026-03-20 19-32-36" src="https://github.com/user-attachments/assets/2d91fd7e-76e9-4a66-9019-023edae2eb85" />
+
+
 
 local ekf 실행결과(gps를 제외한 IMU, ENCODER를 사용한 코드)
 
 
-<img width="586" height="547" alt="스크린샷 2026-03-20 20-16-54" src="https://github.com/user-attachments/assets/150ccc21-841c-4703-9d99-e5ebaf6e6eab" />
+
+
+
+<img width="586" height="547" alt="스크린샷 2026-03-20 20-16-54" src="https://github.com/user-attachments/assets/0d752753-5ed5-4627-ae92-dc77fa215a52" />
+
 
 
 

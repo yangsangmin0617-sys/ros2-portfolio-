@@ -73,12 +73,13 @@ global ekf 실행결과
 
 
 
-<img width="586" height="547" alt="스크린샷 2026-03-20 19-32-36" src="https://github.com/user-attachments/assets/a75ae4bc-8dc5-41d4-be8e-30809d94540f" />
+<img width="586" height="547" alt="스크린샷 2026-03-20 19-32-36" src="https://github.com/user-attachments/assets/a8f92989-f889-4268-af5d-0fa0098aa52b" />
 
 local ekf 실행결과(gps를 제외한 IMU, ENCODER를 사용한 코드)
 
 
-<img width="586" height="547" alt="스크린샷 2026-03-20 20-16-54" src="https://github.com/user-attachments/assets/c640fe3c-965d-4a8d-a830-69f484872460" />
+<img width="586" height="547" alt="스크린샷 2026-03-20 20-16-54" src="https://github.com/user-attachments/assets/150ccc21-841c-4703-9d99-e5ebaf6e6eab" />
+
 
 
 

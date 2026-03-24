@@ -19,7 +19,9 @@ map -> odom: Global EKF가 발행 (GPS 보정치)
 
 odom -> base_link: Local EKF가 발행 (연속적인 이동량)
 
-base_link -> imu_link / gps / velodyne: static_transform_publisher가 발행하는 센서 설치 위치 정보
+base_link -> imu_link / gps /velodyne: static_transform_publisher가 발행하는 센서 설치 위치 정보
+
+
 
 센서             토픽이름                     메세지 타입                    주요활동데이터                                  비고
 ENCODER       /erp42_feedback        erp42_msgs/SerialFeedBack       speed, steer, gear                  Bicycle Model 기반 위치 추정

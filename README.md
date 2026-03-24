@@ -23,13 +23,13 @@ base_link -> imu_link / gps /velodyne: static_transform_publisher가 발행하�
 
 
 
-센서             토픽이름                     메세지 타입                    주요활동데이터                                  비고
-ENCODER       /erp42_feedback        erp42_msgs/SerialFeedBack       speed, steer, gear                  Bicycle Model 기반 위치 추정
+## 🛰️ Sensor & Data Specifications
 
-IMU           /imu/data                  sensor_msgs/Imu        orientation(Yaw), angular_velocity       초기 Heading 정렬 및 회전 보정
-
-GPS           /ublox_gps_node/fix    sensor_msgs/NavSatFix           latitude, longitude                  map 프레임 기준 절대 위치 보정
-
+| 센서 | 토픽 이름 | 메시지 타입 | 주요 활용 데이터 | 비고 |
+| :--- | :--- | :--- | :--- | :--- |
+| **ENCODER** | `/erp42_feedback` | `erp42_msgs/SerialFeedBack` | speed, steer, gear | Bicycle Model 기반 위치 추정 |
+| **IMU** | `/imu/data` | `sensor_msgs/Imu` | orientation(Yaw), angular_velocity | 초기 Heading 정렬 및 회전 보정 |
+| **GPS** | `/ublox_gps_node/fix` | `sensor_msgs/NavSatFix` | latitude, longitude | map 프레임 기준 절대 위치 보정 |
 
 
 실행 명령어 

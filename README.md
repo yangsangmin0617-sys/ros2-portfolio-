@@ -111,7 +111,8 @@ local ekf 실행결과(gps를 제외한 IMU, ENCODER를 사용한 코드)
 ```python
 # [판단 포인트] 입력받은 msg의 시간을 결과 odom에 그대로 복사
 odom.header.stamp = msg.header.stamp
---
+
+
 
 2) 타임스탬프 재발행 (Re-stamping)
 대상 파일: imu_time_sync.py

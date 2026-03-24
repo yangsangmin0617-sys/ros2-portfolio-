@@ -1,26 +1,54 @@
-1. ros2 환경에서 자율주행 플랫폼의 정밀한 위치 추정을 위해 개발되었습니다. ENCODER, IMU, GPS 데이터를 수학적으로 융합하여 실외 주행시 발생하는 오차를 최소화 하고 안정적인 좌표계를 유지합니다.
+# 🏎️ ERP42 Autonomous Localization Project
 
-/erp42_feedback: ERP42 플랫폼의 현재 속도, 조향각(Steer), 기어 상태 정보
+본 프로젝트는 **ROS 2** 환경에서 자율주행 플랫폼(ERP42)의 정밀한 위치 추정을 위해 개발되었습니다. **Encoder, IMU, GPS** 데이터를 수학적으로 융합(EKF)하여 실외 주행 시 발생하는 누적 오차(Drift)를 최소화하고 안정적인 좌표계를 유지합니다.
 
-/imu/data: IMU 센서의 가속도, 각속도 및 절대 방향(Quaternion) 정보
+---
 
-/ublox_gps_node/fix: GPS 수신기에서 들어오는 위도(Latitude), 경도(Longitude) 정보
+## 📡 Sensor & Topic Specifications
 
-/odom: wheel_odometry 노드가 발행. 바퀴 속도와 IMU 방향을 조합한 기초 오도메트리
+### 1. Input Sensor Data (Raw)
+| 센서 | 토픽 이름 | 메시지 타입 | 주요 활용 데이터 | 비고 |
+| :--- | :--- | :--- | :--- | :--- |
+| **ENCODER** | `/erp42_feedback` | `erp42_msgs/SerialFeedBack` | speed, steer, gear | Bicycle Model 기반 위치 추정 |
+| **IMU** | `/imu/data` | `sensor_msgs/Imu` | orientation(Yaw), angular_velocity | 초기 Heading 정렬 및 회전 보정 |
+| **GPS** | `/ublox_gps_node/fix` | `sensor_msgs/NavSatFix` | latitude, longitude | map 프레임 기준 절대 위치 보정 |
 
-/gps_odom: gps_odometry (또는 utm_node)가 발행. GPS 위경도를 미터(m) 단위의 XY 좌표로 변환한 데이터
+### 2. Processed & Output Topics
+| 토픽 이름 | 메시지 타입 | 발행 노드 | 설명 |
+| :--- | :--- | :--- | :--- |
+| `/odom` | `nav_msgs/Odometry` | `wheel_odometry` | 바퀴 속도와 IMU 방향을 조합한 기초 오도메트리 |
+| `/gps_odom` | `nav_msgs/Odometry` | `gps_odometry` | GPS 위경도를 미터(m) 단위 XY 좌표로 변환 |
+| `/odometry/local` | `nav_msgs/Odometry` | **Local EKF** | 바퀴+IMU 융합, 부드러운 주행 경로 (odom 기준) |
+| `/odometry/global` | `nav_msgs/Odometry` | **Global EKF** | GPS+바퀴+IMU 융합, 지도상 절대 위치 (map 기준) |
 
-/odometry/local: Local EKF의 결과물. 바퀴+IMU를 융합하여 부드러운 주행 경로를 보여줍니다. (odom 프레임 기준)
+---
 
-/odometry/global: Global EKF의 결과물. GPS까지 합쳐져 지도상의 절대 위치를 나타냅니다. (map 프레임 기준)
+## 📐 System Architecture & TF Tree
 
-좌표변환
-map -> odom: Global EKF가 발행 (GPS 보정치)
+### 1. TF(Transform) 구성
+본 시스템은 정밀한 위치 추정을 위해 다음과 같은 TF 체계를 구축하였습니다.
 
-odom -> base_link: Local EKF가 발행 (연속적인 이동량)
+* **Dynamic TF (동적 변환)**
+    * **`map` → `odom`**: **Global EKF**가 발행하며, GPS를 이용해 누적 오차를 보정함.
+    * **`odom` → `base_link`**: **Local EKF**가 발행하며, 로봇의 연속적인 이동량을 나타냄.
+* **Static TF (정적 변환)**
+    * **`base_link` → `imu_link` / `gps` / `velodyne`**: 센서의 물리적 설치 위치 정보를 정의함.
 
-base_link -> imu_link / gps /velodyne: static_transform_publisher가 발행하는 센서 설치 위치 정보
 
+
+### 2. Timestamp 동기화 분석 (Engineering Report)
+* **Q: Raw Sensor와 Odometry의 타임스탬프는 왜 같아야 하는가?**
+* **A:** EKF는 여러 센서 데이터를 시간순으로 정렬하여 처리합니다. 타임스탬프가 일치하지 않으면 과거의 상태에 현재 측정값을 적용하게 되어 계산 오차가 발생합니다. 본 프로젝트는 `sync_imu:=true` 옵션과 `imu_time_sync` 노드를 통해 데이터 간의 **시간적 동기화(Temporal Synchronization)**를 보장합니다.
+
+---
+
+## 🛠️ Installation & Usage
+
+### 1. Build
+```bash
+# 워크스페이스 빌드
+colcon build --symlink-install --packages-select localization
+source install/setup.bash
 
 
 ## 🛰️ Sensor & Data Specifications

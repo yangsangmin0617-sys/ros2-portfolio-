@@ -92,6 +92,28 @@ local ekf 실행결과(gps를 제외한 IMU, ENCODER를 사용한 코드)
 물론 당시 백파일 상황이 imu를 고정못했을 때이긴 하지만 오차와 흔들림이 감지된다는걸 확일 할 수 있음
 
 
+## 📐 5. 시스템 설계 및 데이터 정밀 분석 (System Design)
+
+### 5.1. TF(Transform) 구조 분석: Static vs Dynamic
+본 시스템은 ROS 2 표준 좌표계 정의(REP-105)를 준수하며, 센서의 고정 위치(Static)와 실시간 추정 위치(Dynamic)를 엄격히 구분하여 관리합니다.
+
+| 구분 | 포함된 변환 (TF Tree) | 설명 |
+| :--- | :--- | :--- |
+| **Static TF** | `base_link` → `imu_link`, `gps`, `velodyne` | 로봇 중심에서 각 센서가 장착된 거리 및 각도(Offset). 주행 중 수치가 변하지 않으므로 `static_transform_publisher`를 통해 고정 발행함. |
+| **Dynamic TF** | `map` → `odom` (Global EKF)<br>`odom` → `base_link` (Local EKF) | 로봇의 움직임에 따라 실시간으로 변하는 이동량. EKF 노드가 계산한 최적의 위치 추정치를 기반으로 동적 발행함. |
+
+---
+
+#### 1) 타임스탬프 보존 (Same Timestamp)
+* **대상 파일**: `gps_odometry.py`, `wheel_odometry.py`
+* **구현 방식**: 입력 데이터의 시점($t$)을 결과 데이터에 그대로 계승합니다.
+
+```python
+# [판단 포인트] 입력받은 msg의 시간을 결과 odom에 그대로 복사
+odom.header.stamp = msg.header.stamp
+   
+
+
 
 
 
